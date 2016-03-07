@@ -66,14 +66,29 @@ void setup() {
   fill(255);
   sphereDetail(40);
 
-  sun = createShape(SPHERE, 150);
+  sun = beginShape();
+    for(int i = 0; i <= nbPts; i++) {
+      PVector v = pts[i];
+      vertex(v.x, v.y, v.z);
+    }
+    endShape();
   sun.setTexture(suntex);  
 
-  planet1 = createShape(SPHERE, 150);
+  planet1 = beginShape();
+    for(int i = 0; i <= nbPts; i++) {
+      PVector v = pts[i];
+      vertex(v.x, v.y, v.z);
+    }
+    endShape();
   planet1.setTexture(surftex1);
   
-  planet2 = createShape(SPHERE, 50);
-  planet2.setTexture(surftex2);
+  planet2 = beginShape();
+    for(int i = 0; i <= nbPts; i++) {
+      PVector v = pts[i];
+      vertex(v.x, v.y, v.z);
+    }
+    endShape();
+  planet2.setTexture(surftex2);*/
 }
 
 void draw() {
