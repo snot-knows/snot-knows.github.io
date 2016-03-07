@@ -3,7 +3,7 @@ float offset = 0;
 float easing = 0.05;
 
 void setup() {
-  size(900, 900);
+  size(600, 600);
   img = loadImage("DDD.jpg");  // Load an image into the program 
 }
 
