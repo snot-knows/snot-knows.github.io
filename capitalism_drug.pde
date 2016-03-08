@@ -4,7 +4,11 @@
 // Star field picture from http://www.galacticimages.com/
 
 PImage starfield;
-PImage dino;
+
+PImage img;
+float offset = 0;
+float easing = 0.05;
+
 PShape sun;
 PImage suntex;
 
@@ -15,21 +19,27 @@ PImage cloudtex;
 PShape planet2;
 PImage surftex2;
 
-float offset = 0;
-float easing = 0.05;
+PShape planet3;
+PImage surftex3;
+
+PFont f;
 
 void setup() {
   size(1024, 768, P3D);
   
-  starfield = loadImage("dino.jpg");
-  suntex = loadImage("dino.jpg");  
-  surftex1 = loadImage("dino.jpg");
-  dino = loadImage("dino.jpg");  // Load an image into the program 
-   
+  img = loadImage("girl.jpg");
+  
+  f = createFont("Arial",16,true);
+  
+  starfield = loadImage("girl.jpg");
+  suntex = loadImage("girl.jpg");  
+  surftex1 = loadImage("girl.jpg");  
+  surftex3 = loadImage("girl.jpg");
+  
   // We need trilinear sampling for this texture so it looks good
   // even when rendered very small.
   //PTexture.Parameters params1 = PTexture.newParameters(ARGB, TRILINEAR);  
-  surftex2 = loadImage("dino.jpg");  
+  surftex2 = loadImage("girl.jpg");  
   
   /*
   // The clouds texture will "move" having the values of its u
@@ -66,29 +76,17 @@ void setup() {
   fill(255);
   sphereDetail(40);
 
-  sun = beginShape();
-    for(int i = 0; i <= nbPts; i++) {
-      PVector v = pts[i];
-      vertex(v.x, v.y, v.z);
-    }
-    endShape();
+  sun = createShape(SPHERE, 150);
   sun.setTexture(suntex);  
 
-  planet1 = beginShape();
-    for(int i = 0; i <= nbPts; i++) {
-      PVector v = pts[i];
-      vertex(v.x, v.y, v.z);
-    }
-    endShape();
+  planet1 = createShape(SPHERE, 150);
   planet1.setTexture(surftex1);
   
-  planet2 = beginShape();
-    for(int i = 0; i <= nbPts; i++) {
-      PVector v = pts[i];
-      vertex(v.x, v.y, v.z);
-    }
-    endShape();
-  planet2.setTexture(surftex2);*/
+  planet2 = createShape(SPHERE, 50);
+  planet2.setTexture(surftex2);
+  
+  planet3 = createShape(SPHERE, 50);
+  planet3.setTexture(surftex3);
 }
 
 void draw() {
@@ -96,12 +94,30 @@ void draw() {
   // background to clear the screen anyways, otherwise A3D will think
   // you want to keep each drawn frame in the framebuffer, which results in 
   // slower rendering.
-  //image(dino, 0, 0);  // Display at full opacity
+  background(0);
+  
+  stroke(0);
+  translate(50, 50, 0);
+  rotateX(mouseY * 0.05);
+  rotateY(mouseX * 0.05);
+  texture(img);
+    for (int i = 0; i < 100; i++) {
+    float x = random(mouseX*3);
+    float y = random(20000);
+    stroke(0);
+    textFont(f,16);
+    fill(215, 227, 218);
+    text("capitalism is my favorite drug", x, y);
+  }
+  if (frameCount % 10 == 0) println(frameRate);
+  //fill(255, 255, 255, mouseX/10);
+  sphereDetail(mouseX / 4);
+  sphere(200);
   
   // Disabling writing to the depth mask so the 
   // background image doesn't occludes any 3D object.
   hint(DISABLE_DEPTH_MASK);
-  image(dino, 0, 0, width, height);
+  //image(starfield, 0, 0, width, height);
   hint(ENABLE_DEPTH_MASK);
   
   pushMatrix();
@@ -111,10 +127,6 @@ void draw() {
   rotateY(PI * frameCount / 500);
   shape(sun);
   popMatrix();
-  
-  tint (100, mouseX/5);  // Display at half opacity
-  image(dino, offset, 0);
-  
 
   pointLight(255,  255,  255,  0,  0,  0);  
   rotateY(PI * frameCount / 300);
@@ -126,11 +138,10 @@ void draw() {
   
   noLights();
   pointLight(255,  255,  255,  0,  0,  -150); 
-  
+ 
   
   translate(0.75 * width,  0.6 * height,  50);
+  rotateY(PI * mouseX / 300);
   shape(planet1);
   
-  float dx = (mouseX-dino.width/2) - offset;
-  offset += dx * easing; 
 }

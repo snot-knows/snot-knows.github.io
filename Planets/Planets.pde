@@ -21,15 +21,15 @@ float easing = 0.05;
 void setup() {
   size(1024, 768, P3D);
   
-  starfield = loadImage("dino.jpg");
-  suntex = loadImage("dino.jpg");  
-  surftex1 = loadImage("dino.jpg");
-  dino = loadImage("dino.jpg");  // Load an image into the program 
+  starfield = loadImage("girl.jpg");
+  suntex = loadImage("girl.jpg");  
+  surftex1 = loadImage("girl.jpg");
+  dino = loadImage("girl.jpg");  // Load an image into the program 
    
   // We need trilinear sampling for this texture so it looks good
   // even when rendered very small.
   //PTexture.Parameters params1 = PTexture.newParameters(ARGB, TRILINEAR);  
-  surftex2 = loadImage("dino.jpg");  
+  surftex2 = loadImage("girl.jpg");  
   
   /*
   // The clouds texture will "move" having the values of its u
@@ -66,29 +66,14 @@ void setup() {
   fill(255);
   sphereDetail(40);
 
-  sun = beginShape();
-    for(int i = 0; i <= nbPts; i++) {
-      PVector v = pts[i];
-      vertex(v.x, v.y, v.z);
-    }
-    endShape();
+  sun = createShape(SPHERE, 150);
   sun.setTexture(suntex);  
 
-  planet1 = beginShape();
-    for(int i = 0; i <= nbPts; i++) {
-      PVector v = pts[i];
-      vertex(v.x, v.y, v.z);
-    }
-    endShape();
+  planet1 = createShape(SPHERE, 150);
   planet1.setTexture(surftex1);
   
-  planet2 = beginShape();
-    for(int i = 0; i <= nbPts; i++) {
-      PVector v = pts[i];
-      vertex(v.x, v.y, v.z);
-    }
-    endShape();
-  planet2.setTexture(surftex2);*/
+  planet2 = createShape(SPHERE, 150);
+  planet2.setTexture(surftex2);
 }
 
 void draw() {
@@ -115,7 +100,11 @@ void draw() {
   tint (100, mouseX/5);  // Display at half opacity
   image(dino, offset, 0);
   
-
+for (int i = 0; i < 10000; i++) {
+    float x = random(width);
+    float y = random(height);
+    text("HELLO", x, y);
+  }
   pointLight(255,  255,  255,  0,  0,  0);  
   rotateY(PI * frameCount / 300);
   translate(0, 0, 300);
