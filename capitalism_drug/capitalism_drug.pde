@@ -123,6 +123,7 @@ void draw() {
   pushMatrix();
   translate(width/2, height/2, -300);  
   
+  
   pushMatrix();
   rotateY(PI * frameCount / 500);
   shape(sun);
