@@ -172,7 +172,7 @@ body[data-bodyview="index"] .sets .set_link.active a {
 }
 .navigation:after {
   background: rgba(255, 255, 255, 0.13);
-  content: 'amelia andrews photography';
+  content: '';
   display: block;
   position: relative;
   top: 20;
